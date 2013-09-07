@@ -60,7 +60,7 @@ if ($user_id) {
   $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
 
   // This fetches 4 of your friends.
-  $friends = idx($facebook->api('/me/friends?limit=4'), 'data', array());
+  $friends = idx($facebook->api('/me/friends'), 'data', array());
 
   // And this returns 16 of your photos.
   $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
@@ -271,6 +271,7 @@ $app_name = idx($app_info, 'name', '');
           ?>
           <li>
             <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
+
               <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
               <?php echo he($name); ?>
             </a>
