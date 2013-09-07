@@ -215,7 +215,7 @@ $app_name = idx($app_info, 'name', '');
       <div>
         <h1>gyani Welcomes you in his app, <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
         <p class="tagline">
-          This is your app
+          hello, hi, This is your app
           <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
         </p>
 
