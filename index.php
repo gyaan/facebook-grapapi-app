@@ -69,8 +69,14 @@ if ($user_id) {
     // This fetches 4 of your friends.
 //  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
     $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
+
+    echo "<br> your friends</br>";
+    print_r($friend);
+    echo "<br>";
+    
     $FriendHaveTitle = array();
     $FriendDontHaveTitle=array();
+
     foreach($friends as $friend) {
 
         if(array_key_exists('work',$friend)){
