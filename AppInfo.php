@@ -28,7 +28,7 @@ class AppInfo {
    * @return the appSecret for this app
    */
   public static function appSecret() {
-      return '62d607e74960f2b12dc9f7b637988d2e';
+      return '8fb95a488c6ecb5181e1b96baf0b5840';
 //    return getenv('FACEBOOK_SECRET');
   }
 
