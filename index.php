@@ -94,8 +94,8 @@ $naitik = $facebook->api('/naitik');
         <?php
         $accessToken = $facebook->getAccessToken();
         $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
-
-        $FriendHaveTitle = array();
+        print_r($friends);
+       /* $FriendHaveTitle = array();
         $FriendDontHaveTitle=array();
 
         foreach($friends['data'] as $friend) {
@@ -133,7 +133,7 @@ $naitik = $facebook->api('/naitik');
         echo "<br>friends have title<br>";
         print_r($FriendDontHaveTitle);
         echo "</pre>";
-
+*/
         ?>
 
     </pre>
