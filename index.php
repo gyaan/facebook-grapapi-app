@@ -84,7 +84,7 @@ if ($user_id) {
                 $temp = false; //if friend have work details but don't have position
                 if(array_key_exists('position',$work)){
 
-                    $FriendHaveTitle[$work['position']]=array(
+                    $FriendHaveTitle[$work['position']][]=array(
                         'id'=>$friend['id'],
                         'name'=>$friend['name']
                     );
