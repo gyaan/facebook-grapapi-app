@@ -77,7 +77,7 @@ if ($user_id) {
     $FriendHaveTitle = array();
     $FriendDontHaveTitle=array();
 
-    foreach($friends as $friend) {
+    foreach($friends['data'] as $friend) {
 
         if(array_key_exists('work',$friend)){
             foreach($friend['work'] as $work){
