@@ -15,7 +15,7 @@
  * under the License.
  */
 
-require '../src/facebook.php';
+require_once('sdk/src/facebook.php');
 
 // Create our Application instance (replace this with your appId and secret).
 $facebook = new Facebook(array(
@@ -88,14 +88,16 @@ $naitik = $facebook->api('/naitik');
 <?php if ($user): ?>
     <h3>You</h3>
     <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
-
     <h3>Your User Object (/me)</h3>
     <pre>
         <?php
+//        print_r($user_profile);
+
         $accessToken = $facebook->getAccessToken();
+
         $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
-        print_r($friends);
-       /* $FriendHaveTitle = array();
+
+        $FriendHaveTitle = array();
         $FriendDontHaveTitle=array();
 
         foreach($friends['data'] as $friend) {
@@ -133,9 +135,7 @@ $naitik = $facebook->api('/naitik');
         echo "<br>friends have title<br>";
         print_r($FriendDontHaveTitle);
         echo "</pre>";
-*/
         ?>
-
     </pre>
 <?php else: ?>
     <strong><em>You are not Connected.</em></strong>
