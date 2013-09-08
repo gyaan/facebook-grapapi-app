@@ -62,7 +62,8 @@ if ($user_id) {
   $accessToken = $facebook->getAccessToken();
 
   // This fetches 4 of your friends.
-  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
+//  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
+  $friends = $facebook->api('me/friends?fields=work&access_token='.$accessToken.'');
 
 
   print_r($friends);
