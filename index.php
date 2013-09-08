@@ -81,9 +81,9 @@ if ($user_id) {
 
         if(array_key_exists('work',$friend)){
             foreach($friend['work'] as $work){
-                echo "hi";
-                die();
                 $temp = false; //if friend have work details but don't have position
+             print_r($work);
+                die();
                 if(array_key_exists('position',$work)){
                      echo   $work['position'];
                     die();
