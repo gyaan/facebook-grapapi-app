@@ -82,12 +82,8 @@ if ($user_id) {
         if(array_key_exists('work',$friend)){
             foreach($friend['work'] as $work){
                 $temp = false; //if friend have work details but don't have position
-             print_r($work);
-                die();
                 if(array_key_exists('position',$work)){
-                     echo   $work['position'];
-                    die();
-                    $FriendHaveTitle[$work['position']][]=array(
+                    $FriendHaveTitle[$work['position']['name']][]=array(
                         'id'=>$friend['id'],
                         'name'=>$friend['name']
                     );
