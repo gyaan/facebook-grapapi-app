@@ -33,6 +33,11 @@ require_once('utils.php');
 
 require_once('sdk/src/facebook.php');
 
+
+echo AppInfo::appID();
+echo AppInfo::appSecret();
+echo '<br>gyani';
+
 $facebook = new Facebook(array(
   'appId'  => AppInfo::appID(),
   'secret' => AppInfo::appSecret(),
