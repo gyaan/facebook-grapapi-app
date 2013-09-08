@@ -59,8 +59,10 @@ if ($user_id) {
   // Explorer" which is at https://developers.facebook.com/tools/explorer/
   $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
 
+  $accessToken = $facebook->getAccessToken();
+
   // This fetches 4 of your friends.
-  $friends = idx($facebook->api('me/friends?fields=work'), 'data', array());
+  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
 
 
   print_r($friends);
