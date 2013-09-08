@@ -70,9 +70,6 @@ if ($user_id) {
 //  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
     $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
 
-    echo "<br> your friends</br>";
-    print_r($friends);
-    echo "<br>";
 
     $FriendHaveTitle = array();
     $FriendDontHaveTitle=array();
@@ -112,7 +109,6 @@ if ($user_id) {
     echo "<br>friends have title<br>";
     print_r($FriendDontHaveTitle);
     echo "</pre>";
-    exit();
 
         // And this returns 16 of your photos.
     $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
