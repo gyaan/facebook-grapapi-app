@@ -92,7 +92,7 @@ $naitik = $facebook->api('/naitik');
     <h3>Your User Object (/me)</h3>
     <pre>
         <?php
-
+        $accessToken = $facebook->getAccessToken();
         $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
 
         $FriendHaveTitle = array();
