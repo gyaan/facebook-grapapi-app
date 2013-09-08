@@ -71,9 +71,9 @@ if ($user_id) {
     $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
 
     echo "<br> your friends</br>";
-    print_r($friend);
+    print_r($friends);
     echo "<br>";
-    
+
     $FriendHaveTitle = array();
     $FriendDontHaveTitle=array();
 
