@@ -164,54 +164,7 @@ $app_name = idx($app_info, 'name', '');
                 console.log('The response was', response);
             }
         }
-
-        $(function(){
-            // Set up so we handle click on the buttons
-            $('#postToWall').click(function() {
-                FB.ui(
-                    {
-                        method : 'feed',
-                        link   : $(this).attr('data-url')
-                    },
-                    function (response) {
-                        // If response is null the user canceled the dialog
-                        if (response != null) {
-                            logResponse(response);
-                        }
-                    }
-                );
-            });
-
-            $('#sendToFriends').click(function() {
-                FB.ui(
-                    {
-                        method : 'send',
-                        link   : $(this).attr('data-url')
-                    },
-                    function (response) {
-                        // If response is null the user canceled the dialog
-                        if (response != null) {
-                            logResponse(response);
-                        }
-                    }
-                );
-            });
-
-            $('#sendRequest').click(function() {
-                FB.ui(
-                    {
-                        method  : 'apprequests',
-                        message : $(this).attr('data-message')
-                    },
-                    function (response) {
-                        // If response is null the user canceled the dialog
-                        if (response != null) {
-                            logResponse(response);
-                        }
-                    }
-                );
-            });
-        });
+       });
     </script>
 
     <!--[if IE]>
@@ -269,7 +222,6 @@ $app_name = idx($app_info, 'name', '');
             </button>
             <a class="navbar-brand" href="#">Project name</a>
         </div>
-      <!--/.navbar-collapse -->
     </div>
 </div>
 
@@ -284,17 +236,17 @@ $app_name = idx($app_info, 'name', '');
 
 
 <?php if (isset($basic)) { ?>
-    <h1>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
+    <h2>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h2>
 <?php } else { ?>
-        <div>
-            <h1>Welcome</h1>
-            <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
-        </div>
-    <?php } ?>
+    <div>
+        <h2>Welcome</h2>
+        <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
+    </div>
+<?php } ?>
 
 <?php
 if ($user_id) {
-    ?>
+?>
 <!-- here we gone display list -->
 
 <div class="container">
@@ -309,12 +261,9 @@ if ($user_id) {
             </div>
         <?php }?>
     </div>
-<?php
-}
-?>
-
-
-
+    <?php
+    }
+    ?>
     <hr>
 
     <footer>
