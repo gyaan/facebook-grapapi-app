@@ -1,6 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL & ~E_NOTICE);
+
 /**
  * This sample app is provided to kickstart your experience using Facebook's
  * resources for developers.  This sample app provides examples of several
@@ -19,6 +18,8 @@ if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != 
     exit();
 }
 
+// This provides access to helper functions defined in 'utils.php'
+require_once('utils.php');
 
 
 /*****************************************************************************
@@ -57,15 +58,22 @@ if ($user_id) {
             exit();
         }
     }
-    //get access token
-    $accessToken = $facebook->getAccessToken();
 
-    //get friends work details
+    // This fetches some things that you like . 'limit=*" only returns * values.
+    // To see the format of the data you are retrieving, use the "Graph API
+    // Explorer" which is at https://developers.facebook.com/tools/explorer/
+    $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
+
+    $accessToken = $facebook->getAccessToken();
+    echo "<br><b>".$accessToken."</b><br>";
+
+    // This fetches 4 of your friends.
+//  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
     $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
 
 
-    $FriendHaveTitle = array();   //get all friends list who have specified title in any of work history
-    $FriendDontHaveTitle=array();  //contain list of all friends who don't have title
+    $FriendHaveTitle = array();
+    $FriendDontHaveTitle=array();
 
     foreach($friends['data'] as $friend) {
 
@@ -77,8 +85,9 @@ if ($user_id) {
                         'id'=>$friend['id'],
                         'name'=>$friend['name']
                     );
-                    $temp = true;  //make this flag true if friend have position in work history
+                    $temp = true;
                 }
+
             }
             if($temp===false){
                 $FriendDontHaveTitle[]=array(
@@ -87,34 +96,57 @@ if ($user_id) {
                 );
             }
         }
-        else{  //friend don't have work history
+        else{
             $FriendDontHaveTitle[]=array(
                 'id'=>$friend['id'],
                 'name'=>$friend['name'],
             );
         }
 
-    }
 
+    }
+    echo "<br>friends have title<br>";
+    print_r($FriendHaveTitle);
+    echo "<br>friends do not have title<br>";
+    print_r($FriendDontHaveTitle);
+    echo "</pre>";
+
+    // And this returns 16 of your photos.
+    $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
+
+    // Here is an example of a FQL call that fetches all of your friends that are
     // using this app
     $app_using_friends = $facebook->api(array(
         'method' => 'fql.query',
         'query' => 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1'
     ));
 }
+
 // Fetch the basic info of the app that they are using
 $app_info = $facebook->api('/'. AppInfo::appID());
+
+$app_name = idx($app_info, 'name', '');
+
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
 
-    <!--facebook meta tags -->
+    <title> welocme to gyani's facebook app <?php echo he($app_name); ?></title>
+    <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
+
+    <!--[if IEMobile]>
+    <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
+    <![endif]-->
+
+    <!-- These are Open Graph tags.  They add meta data to your  -->
+    <!-- site that facebook uses when your content is shared     -->
+    <!-- over facebook.  You should fill these tags in with      -->
+    <!-- your data.  To learn more about Open Graph, visit       -->
+    <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
     <meta property="og:title" content="<?php echo he($app_name); ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
@@ -122,18 +154,8 @@ $app_info = $facebook->api('/'. AppInfo::appID());
     <meta property="og:site_name" content="<?php echo he($app_name); ?>" />
     <meta property="og:description" content="My first app" />
     <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
-    <link rel="shortcut icon" href="bootstrap/assets/ico/favicon.png">
-    <title>Gyan's Faceboo Friends Cluster App</title>
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="bootstrap/examples/jumbotron/jumbotron.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="bootstrap/assets/js/html5shiv.js"></script>
-    <script src="bootstrap/assets/js/respond.min.js"></script>
+
     <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
-    <![endif]-->
 
     <script type="text/javascript">
         function logResponse(response) {
@@ -198,11 +220,8 @@ $app_info = $facebook->api('/'. AppInfo::appID());
             document.createElement(tags.pop());
     </script>
     <![endif]-->
-
-
 </head>
 <body>
-
 <div id="fb-root"></div>
 <script type="text/javascript">
     window.fbAsyncInit = function() {
@@ -238,68 +257,145 @@ $app_info = $facebook->api('/'. AppInfo::appID());
     }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Friends Clusters</a>
+<header class="clearfix">
+    <?php if (isset($basic)) { ?>
+        <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
+
+        <div>
+            <h1>gyani Welcomes you in his app, <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
+            <p class="tagline">
+                hello, hi, This is your app
+                <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
+            </p>
+
+            <div id="share-app">
+                <p>Share your app:</p>
+                <ul>
+                    <li>
+                        <a href="#" class="facebook-button" id="postToWall" data-url="<?php echo AppInfo::getUrl(); ?>">
+                            <span class="plus">Post to Wall</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo AppInfo::getUrl(); ?>">
+                            <span class="speech-bubble">Send Message</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Test this awesome app">
+                            <span class="apprequests">Send Requests</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</div>
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1>Friends, Clusters!</h1>
-        <p>This app will show all your facebook friends in title clusters (Friends who are using this facebook app).</p>
-    </div>
-</div>
-
-
-<?php if (isset($basic)) { ?>
-
-    <p><?php echo "guamo"; ?></p>
-<!--    <p id="picture" style="background-image: url(https://graph.facebook.com/--><?php //echo $user_id; ?><!--/picture?type=normal)"></p>-->
-<?php } else { ?>
-    <div>
-        <h1>Welcome</h1>
-        <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
-    </div>
-<?php  }?>
+    <?php } else { ?>
+        <div>
+            <h1>Welcome</h1>
+            <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
+        </div>
+    <?php } ?>
+</header>
 
 <?php
 if ($user_id) {
+    ?>
+
+    <section id="samples" class="clearfix">
+        <h1>Examples of the Facebook Graph API</h1>
+
+        <div class="list">
+            <h3>A few of your friends</h3>
+            <ul class="friends">
+                <?php
+                foreach ($friends as $friend) {
+                    // Extract the pieces of info we need from the requests above
+                    $id = idx($friend, 'id');
+                    $name = idx($friend, 'name');
+                    ?>
+                    <li>
+                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
+
+                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
+                            <?php echo he($name); ?>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+        </div>
+
+        <div class="list inline">
+            <h3>Recent photos</h3>
+            <ul class="photos">
+                <?php
+                $i = 0;
+                foreach ($photos as $photo) {
+                    // Extract the pieces of info we need from the requests above
+                    $id = idx($photo, 'id');
+                    $picture = idx($photo, 'picture');
+                    $link = idx($photo, 'link');
+
+                    $class = ($i++ % 4 === 0) ? 'first-column' : '';
+                    ?>
+                    <li style="background-image: url(<?php echo he($picture); ?>);" class="<?php echo $class; ?>">
+                        <a href="<?php echo he($link); ?>" target="_top"></a>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+        </div>
+
+        <div class="list">
+            <h3>Things you like</h3>
+            <ul class="things">
+                <?php
+                foreach ($likes as $like) {
+                    // Extract the pieces of info we need from the requests above
+                    $id = idx($like, 'id');
+                    $item = idx($like, 'name');
+
+                    // This display's the object that the user liked as a link to
+                    // that object's page.
+                    ?>
+                    <li>
+                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
+                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($item); ?>">
+                            <?php echo he($item); ?>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+        </div>
+
+        <div class="list">
+            <h3>Friends using this app</h3>
+            <ul class="friends">
+                <?php
+                foreach ($app_using_friends as $auf) {
+                    // Extract the pieces of info we need from the requests above
+                    $id = idx($auf, 'uid');
+                    $name = idx($auf, 'name');
+                    ?>
+                    <li>
+                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
+                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
+                            <?php echo he($name); ?>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+        </div>
+    </section>
+
+<?php
+}
 ?>
-
-<div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <?php foreach($FriendHaveTitle as $title=>$friends) {?>
-            <div class="col-lg-4">
-                <h2><?php echo $title;?></h2>
-                <?php foreach ($friends as $friend) {?>
-                    <p><?php echo $friend['name'];?></p>
-                <?php } ?>
-            </div>
-        <?php }?>
-    </div>
-    <?php
-    }?>
-    <hr>
-
-    <footer>
-        <p>&copy; <a href="http://www.gyaneshwar.net">Gyaneshwar.Net</a></p>
-    </footer>
-</div> <!-- /container -->
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
