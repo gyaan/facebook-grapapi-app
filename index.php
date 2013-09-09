@@ -176,6 +176,30 @@ $app_name = idx($app_info, 'name', '');
     <![endif]-->
 </head>
 <body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Friends, Clusters!</h1>
+        <p>This app will show all your facebook friends in title clusters (Friends who are using this facebook app).</p>
+    </div>
+</div>
+
+
 <div id="fb-root"></div>
 <script type="text/javascript">
     window.fbAsyncInit = function() {
@@ -210,29 +234,6 @@ $app_name = idx($app_info, 'name', '');
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
-
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-    </div>
-</div>
-
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1>Friends, Clusters!</h1>
-        <p>This app will show all your facebook friends in title clusters (Friends who are using this facebook app).</p>
-    </div>
-</div>
 
 
 <?php if (isset($basic)) { ?>
