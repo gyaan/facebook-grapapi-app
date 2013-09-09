@@ -260,7 +260,9 @@ $app_info = $facebook->api('/'. AppInfo::appID());
 
 
 <?php if (isset($basic)) { ?>
-    <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo $user_id; ?>/picture?type=normal)"></p>
+
+    <p><?php echo "guamo".$basic['name']; ?></p>
+<!--    <p id="picture" style="background-image: url(https://graph.facebook.com/--><?php //echo $user_id; ?><!--/picture?type=normal)"></p>-->
 <?php } else { ?>
     <div>
         <h1>Welcome</h1>
