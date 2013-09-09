@@ -65,6 +65,7 @@ if ($user_id) {
     $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
 
     $accessToken = $facebook->getAccessToken();
+    echo "<br><b>".$accessToken."</b><br>";
 
     // This fetches 4 of your friends.
 //  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
