@@ -292,15 +292,10 @@ $app_name = idx($app_info, 'name', '');
     <?php } else { ?>
         <div>
             <h1>Welcome</h1>
-            <div class="fb-login-button" data-scope="user_likes,user_photos"></div>
+            <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
         </div>
     <?php } ?>
 </header>
-
-<section id="get-started">
-    <p>Welcome to your Facebook app, running on <span>heroku</span>!</p>
-    <a href="https://devcenter.heroku.com/articles/facebook" target="_top" class="button">Learn How to Edit This App</a>
-</section>
 
 <?php
 if ($user_id) {
@@ -402,33 +397,5 @@ if ($user_id) {
 <?php
 }
 ?>
-
-<section id="guides" class="clearfix">
-    <h1>Learn More About Heroku &amp; Facebook Apps</h1>
-    <ul>
-        <li>
-            <a href="https://www.heroku.com/?utm_source=facebook&utm_medium=app&utm_campaign=fb_integration" target="_top" class="icon heroku">Heroku</a>
-            <p>Learn more about <a href="https://www.heroku.com/?utm_source=facebook&utm_medium=app&utm_campaign=fb_integration" target="_top">Heroku</a>, or read developer docs in the Heroku <a href="https://devcenter.heroku.com/" target="_top">Dev Center</a>.</p>
-        </li>
-        <li>
-            <a href="https://developers.facebook.com/docs/guides/web/" target="_top" class="icon websites">Websites</a>
-            <p>
-                Drive growth and engagement on your site with
-                Facebook Login and Social Plugins.
-            </p>
-        </li>
-        <li>
-            <a href="https://developers.facebook.com/docs/guides/mobile/" target="_top" class="icon mobile-apps">Mobile Apps</a>
-            <p>
-                Integrate with our core experience by building apps
-                that operate within Facebook.
-            </p>
-        </li>
-        <li>
-            <a href="https://developers.facebook.com/docs/guides/canvas/" target="_top" class="icon apps-on-facebook">Apps on Facebook</a>
-            <p>Let users find and connect to their friends in mobile apps and games.</p>
-        </li>
-    </ul>
-</section>
 </body>
 </html>
