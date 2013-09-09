@@ -284,33 +284,8 @@ $app_name = idx($app_info, 'name', '');
 
 
 <?php if (isset($basic)) { ?>
-        <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
-
-        <div>
-            <h1>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
-
-            <div id="share-app">
-                <p>Share your app:</p>
-                <ul>
-                    <li>
-                        <a href="#" class="facebook-button" id="postToWall" data-url="<?php echo AppInfo::getUrl(); ?>">
-                            <span class="plus">Post to Wall</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo AppInfo::getUrl(); ?>">
-                            <span class="speech-bubble">Send Message</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Test this awesome app">
-                            <span class="apprequests">Send Requests</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    <?php } else { ?>
+    <h1>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
+<?php } else { ?>
         <div>
             <h1>Welcome</h1>
             <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
