@@ -67,7 +67,7 @@
     <hr>
 
     <footer>
-        <p>&copy; <a href="www.gyaneshwar.net">Gyaneshwar.Net</a></p>
+        <p>&copy; <a href="http://www.gyaneshwar.net">Gyaneshwar.Net</a></p>
     </footer>
 </div> <!-- /container -->
 
