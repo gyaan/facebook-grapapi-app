@@ -146,18 +146,7 @@ $app_name = idx($app_info, 'name', '');
     <meta name="description" content=" Friends Cluster">
     <meta name="author" content="gyaneshwar pardhi">
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="bootstrap/examples/jumbotron/jumbotron.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="bootstrap/assets/js/html5shiv.js"></script>
-    <script src="bootstrap/assets/js/respond.min.js"></script>
-    <![endif]-->
-
     <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
-
     <script type="text/javascript">
         function logResponse(response) {
             if (console && console.log) {
@@ -176,30 +165,6 @@ $app_name = idx($app_info, 'name', '');
     <![endif]-->
 </head>
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-    </div>
-</div>
-
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1>Friends, Clusters!</h1>
-        <p>This app will show all your facebook friends in title clusters (Friends who are using this facebook app).</p>
-    </div>
-</div>
-
-
 <div id="fb-root"></div>
 <script type="text/javascript">
     window.fbAsyncInit = function() {
@@ -235,7 +200,6 @@ $app_name = idx($app_info, 'name', '');
     }(document, 'script', 'facebook-jssdk'));
 </script>
 
-
 <?php if (isset($basic)) { ?>
     <h2>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h2>
 <?php } else { ?>
@@ -249,7 +213,6 @@ $app_name = idx($app_info, 'name', '');
 if ($user_id) {
 ?>
 <!-- here we gone display list -->
-
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
@@ -271,8 +234,5 @@ if ($user_id) {
         <p>&copy; <a href="http://www.gyaneshwar.net">Gyaneshwar.Net</a></p>
     </footer>
 </div> <!-- /container -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="bootstrap/dist/js/bootstrap.min.js"></script>
-
 </body>
 </html>
