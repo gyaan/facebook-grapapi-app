@@ -141,6 +141,11 @@ $app_name = idx($app_info, 'name', '');
     <meta property="og:description" content="My first app" />
     <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=" Friends Cluster">
+    <meta name="author" content="gyaneshwar pardhi">
+
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -253,7 +258,32 @@ $app_name = idx($app_info, 'name', '');
     }(document, 'script', 'facebook-jssdk'));
 </script>
 
-    <?php if (isset($basic)) { ?>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+      <!--/.navbar-collapse -->
+    </div>
+</div>
+
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Friends, Clusters!</h1>
+        <p>This app will show all your facebook friends in title clusters (Friends who are using this facebook app).</p>
+    </div>
+</div>
+
+
+<?php if (isset($basic)) { ?>
         <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
 
         <div>
