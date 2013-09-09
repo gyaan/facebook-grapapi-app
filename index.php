@@ -202,10 +202,11 @@ $app_name = idx($app_info, 'name', '');
 
 <?php if (isset($basic)) { ?>
     <h2>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h2>
+    <p>Here is your Friends Clusters According to their Titles:</p>
 <?php } else { ?>
     <div>
         <h2>Welcome</h2>
-        <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
+        <div class="fb-login-button" data-scope="user_photos,friends_work_history"></div>
     </div>
 <?php } ?>
 
