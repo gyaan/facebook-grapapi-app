@@ -216,7 +216,7 @@ if ($user_id) {
     <?php foreach($FriendHaveTitle as $title=>$friends) {?>
         <div class="list">
             <h3><?php echo "Title:".$title."<br>";?></h3>
-            <ul class="friends">
+            <ul class="friends" style="display: inline-block">
                 <?php foreach ($friends as $friend) {
                     // Extract the pieces of info we need from the requests above
                     $id = idx($friend, 'id');
