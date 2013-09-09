@@ -78,7 +78,6 @@ if ($user_id) {
                     );
                     $temp = true;  //make this flag true if friend have position in work history
                 }
-
             }
             if($temp===false){
                 $FriendDontHaveTitle[]=array(
@@ -276,7 +275,7 @@ if ($user_id) {
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
-        <?php foreach($FriendHaveTitle as $title=>$friend) {?>
+        <?php foreach($FriendHaveTitle as $title=>$friends) {?>
             <div class="col-lg-4">
                 <h2><?php echo $title;?></h2>
                 <?php foreach ($friends as $friend) {?>
