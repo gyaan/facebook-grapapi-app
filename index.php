@@ -215,12 +215,12 @@ if ($user_id) {
 <!-- here we gone display list -->
 <div class="container">
     <!-- Example row of columns -->
-    <div class="row">
+    <div>
         <?php foreach($FriendHaveTitle as $title=>$friends) {?>
-            <div class="col-lg-4">
-                <h2><?php echo $title;?></h2>
+            <div>
+                <h2><?php echo "Title:".$title."<br>";?></h2>
                 <?php foreach ($friends as $friend) {?>
-                    <p><?php echo $friend['name'];?></p>
+                    <b><?php echo $friend['name'];?></b>
                 <?php } ?>
             </div>
         <?php }?>
