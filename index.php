@@ -106,7 +106,7 @@ if ($user_id) {
     }
     echo "<br>friends have title<br>";
     print_r($FriendHaveTitle);
-    echo "<br>friends don't  have title<br>";
+    echo "<br>friends do not have title<br>";
     print_r($FriendDontHaveTitle);
     echo "</pre>";
 
