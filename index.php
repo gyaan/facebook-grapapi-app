@@ -153,7 +153,7 @@ $app_name = idx($app_info, 'name', '');
                 console.log('The response was', response);
             }
         }
-       });
+        });
     </script>
 
     <!--[if IE]>
@@ -211,28 +211,33 @@ $app_name = idx($app_info, 'name', '');
 
 <?php
 if ($user_id) {
-?>
-<!-- here we gone display list -->
-<div class="container">
-    <!-- Example row of columns -->
-    <div>
-        <?php foreach($FriendHaveTitle as $title=>$friends) {?>
-            <div>
-                <h2><?php echo "Title:".$title."<br>";?></h2>
-                <?php foreach ($friends as $friend) {?>
-                    <b><?php echo $friend['name'];?></b>
-                <?php } ?>
-            </div>
-        <?php }?>
-    </div>
-    <?php
-    }
     ?>
-    <hr>
+    <!-- here we gone display list -->
+    <?php foreach($FriendHaveTitle as $title=>$friends) {?>
+        <div class="list">
+            <h3><?php echo "Title:".$title."<br>";?></h3>
+            <ul class="friends">
+                <?php foreach ($friends as $friend) {
+                    // Extract the pieces of info we need from the requests above
+                    $id = idx($friend, 'id');
+                    $name = idx($friend, 'name');
+                    ?>
+                    <li>
+                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
 
-    <footer>
-        <p>&copy; <a href="http://www.gyaneshwar.net">Gyaneshwar.Net</a></p>
-    </footer>
-</div> <!-- /container -->
+                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
+                            <?php echo he($name); ?>
+                        </a>
+                    </li>
+                <?php }?>
+            </ul>
+        </div>
+    <?php }?>
+    </div>
+<?php
+}
+?>
+<hr>
+<p>&copy; <a href="http://www.gyaneshwar.net">Gyaneshwar.Net</a></p>
 </body>
 </html>
