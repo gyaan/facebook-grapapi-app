@@ -65,10 +65,6 @@ if ($user_id) {
     $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
 
     $accessToken = $facebook->getAccessToken();
-    echo "<br><b>".$accessToken."</b><br>";
-
-    // This fetches 4 of your friends.
-//  $friends = idx($facebook->api('me/friends?fields=work&access_token='.$accessToken.''), 'data', array());
     $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
 
 
@@ -105,16 +101,7 @@ if ($user_id) {
 
 
     }
-    echo "<br>friends have title<br>";
-    print_r($FriendHaveTitle);
-    echo "<br>friends do not have title<br>";
-    print_r($FriendDontHaveTitle);
-    echo "</pre>";
 
-    // And this returns 16 of your photos.
-    $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
-
-    // Here is an example of a FQL call that fetches all of your friends that are
     // using this app
     $app_using_friends = $facebook->api(array(
         'method' => 'fql.query',
@@ -124,7 +111,6 @@ if ($user_id) {
 
 // Fetch the basic info of the app that they are using
 $app_info = $facebook->api('/'. AppInfo::appID());
-
 $app_name = idx($app_info, 'name', '');
 
 ?>
@@ -154,6 +140,16 @@ $app_name = idx($app_info, 'name', '');
     <meta property="og:site_name" content="<?php echo he($app_name); ?>" />
     <meta property="og:description" content="My first app" />
     <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="bootstrap/examples/jumbotron/jumbotron.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="bootstrap/assets/js/html5shiv.js"></script>
+    <script src="bootstrap/assets/js/respond.min.js"></script>
+    <![endif]-->
 
     <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
 
@@ -257,16 +253,11 @@ $app_name = idx($app_info, 'name', '');
     }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<header class="clearfix">
     <?php if (isset($basic)) { ?>
         <p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
 
         <div>
-            <h1>gyani Welcomes you in his app, <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
-            <p class="tagline">
-                hello, hi, This is your app
-                <a href="<?php echo he(idx($app_info, 'link'));?>" target="_top"><?php echo he($app_name); ?></a>
-            </p>
+            <h1>Welcomes <strong><?php echo he(idx($basic, 'name')); ?></strong></h1>
 
             <div id="share-app">
                 <p>Share your app:</p>
@@ -295,107 +286,38 @@ $app_name = idx($app_info, 'name', '');
             <div class="fb-login-button" data-scope="user_likes,user_photos,friends_work_history"></div>
         </div>
     <?php } ?>
-</header>
 
 <?php
 if ($user_id) {
     ?>
+<!-- here we gone display list -->
 
-    <section id="samples" class="clearfix">
-        <h1>Examples of the Facebook Graph API</h1>
-
-        <div class="list">
-            <h3>A few of your friends</h3>
-            <ul class="friends">
-                <?php
-                foreach ($friends as $friend) {
-                    // Extract the pieces of info we need from the requests above
-                    $id = idx($friend, 'id');
-                    $name = idx($friend, 'name');
-                    ?>
-                    <li>
-                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
-
-                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
-                            <?php echo he($name); ?>
-                        </a>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-        </div>
-
-        <div class="list inline">
-            <h3>Recent photos</h3>
-            <ul class="photos">
-                <?php
-                $i = 0;
-                foreach ($photos as $photo) {
-                    // Extract the pieces of info we need from the requests above
-                    $id = idx($photo, 'id');
-                    $picture = idx($photo, 'picture');
-                    $link = idx($photo, 'link');
-
-                    $class = ($i++ % 4 === 0) ? 'first-column' : '';
-                    ?>
-                    <li style="background-image: url(<?php echo he($picture); ?>);" class="<?php echo $class; ?>">
-                        <a href="<?php echo he($link); ?>" target="_top"></a>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-        </div>
-
-        <div class="list">
-            <h3>Things you like</h3>
-            <ul class="things">
-                <?php
-                foreach ($likes as $like) {
-                    // Extract the pieces of info we need from the requests above
-                    $id = idx($like, 'id');
-                    $item = idx($like, 'name');
-
-                    // This display's the object that the user liked as a link to
-                    // that object's page.
-                    ?>
-                    <li>
-                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
-                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($item); ?>">
-                            <?php echo he($item); ?>
-                        </a>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-        </div>
-
-        <div class="list">
-            <h3>Friends using this app</h3>
-            <ul class="friends">
-                <?php
-                foreach ($app_using_friends as $auf) {
-                    // Extract the pieces of info we need from the requests above
-                    $id = idx($auf, 'uid');
-                    $name = idx($auf, 'name');
-                    ?>
-                    <li>
-                        <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
-                            <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
-                            <?php echo he($name); ?>
-                        </a>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-        </div>
-    </section>
-
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <?php foreach($FriendHaveTitle as $title=>$friends) {?>
+            <div class="col-lg-4">
+                <h2><?php echo $title;?></h2>
+                <?php foreach ($friends as $friend) {?>
+                    <p><?php echo $friend['name'];?></p>
+                <?php } ?>
+            </div>
+        <?php }?>
+    </div>
 <?php
 }
 ?>
+
+
+
+    <hr>
+
+    <footer>
+        <p>&copy; <a href="http://www.gyaneshwar.net">Gyaneshwar.Net</a></p>
+    </footer>
+</div> <!-- /container -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
