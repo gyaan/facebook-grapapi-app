@@ -62,7 +62,6 @@ if ($user_id) {
     // This fetches some things that you like . 'limit=*" only returns * values.
     // To see the format of the data you are retrieving, use the "Graph API
     // Explorer" which is at https://developers.facebook.com/tools/explorer/
-    $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
 
     $accessToken = $facebook->getAccessToken();
     $friends = $facebook->api('me/friends?fields=id,name,work&access_token='.$accessToken.'');
