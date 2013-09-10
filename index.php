@@ -249,7 +249,7 @@ if ($user_id) {
         <div class="list" style="padding: 10px 10px 10px 10px;">
             <h3><?php echo "Don't have title"?></h3>
             <ul class="friends">
-                <?php foreach ($FriendDontHaveTitleHaveTitle as $friend) {
+                <?php foreach ($FriendDontHaveTitle as $friend) {
                     // Extract the pieces of info we need from the requests above
                     $id = idx($friend, 'id');
                     $name = idx($friend, 'name');
