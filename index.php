@@ -74,8 +74,8 @@ if ($user_id) {
     foreach($friends['data'] as $friend) {
 
         if(array_key_exists('work',$friend)){
+            $temp = false; //if friend have work details but don't have position
             foreach($friend['work'] as $work){
-                $temp = false; //if friend have work details but don't have position
                 if(array_key_exists('position',$work)){
                     $FriendHaveTitle[$work['position']['name']][]=array(
                         'id'=>$friend['id'],
@@ -244,8 +244,6 @@ if ($user_id) {
     </div>
 
     <?php
-
-    $FriendDontHaveTitle = array_diff($FriendDontHaveTitle,$FriendHaveTitle);
 
     if(count($FriendDontHaveTitle)>0) {?>
         <div class="list" style="padding: 10px 10px 10px 10px;">
