@@ -214,11 +214,42 @@ $app_name = idx($app_info, 'name', '');
 if ($user_id) {
     ?>
     <!-- here we gone display list -->
-    <?php foreach($FriendHaveTitle as $title=>$friends) {?>
+    <?php
+
+    if(count($FriendHaveTitle)> 0){
+        foreach($FriendHaveTitle as $title=>$friends) {?>
+            <div class="list" style="padding: 10px 10px 10px 10px;">
+                <h3><?php echo $title;?></h3>
+                <ul class="friends">
+                    <?php foreach ($friends as $friend) {
+                        // Extract the pieces of info we need from the requests above
+                        $id = idx($friend, 'id');
+                        $name = idx($friend, 'name');
+                        ?>
+                        <li style="display: inline-block;width: 250px;">
+                            <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
+                                <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
+                                <?php echo he($name); ?>
+                            </a>
+                        </li>
+                    <?php }?>
+                </ul>
+            </div>
+        <?php }
+    }
+    else{
+        echo "no one specified their title/titles in your friend list";
+    }
+    ?>
+    </div>
+
+    <?php
+
+    if(count($FriendDontHaveTitle)>0) {?>
         <div class="list" style="padding: 10px 10px 10px 10px;">
-            <h3><?php echo $title;?></h3>
+            <h3><?php echo "Don't have title"?></h3>
             <ul class="friends">
-                <?php foreach ($friends as $friend) {
+                <?php foreach ($FriendDontHaveTitleHaveTitle as $friend) {
                     // Extract the pieces of info we need from the requests above
                     $id = idx($friend, 'id');
                     $name = idx($friend, 'name');
@@ -232,8 +263,12 @@ if ($user_id) {
                 <?php }?>
             </ul>
         </div>
-    <?php }?>
+    <?php
+    }else{
+        echo 'All friend specified their titles';
+    }?>
     </div>
+
 <?php
 }
 ?>
