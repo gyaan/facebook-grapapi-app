@@ -245,6 +245,8 @@ if ($user_id) {
 
     <?php
 
+    $FriendDontHaveTitle = array_diff($FriendDontHaveTitle,$FriendHaveTitle);
+
     if(count($FriendDontHaveTitle)>0) {?>
         <div class="list" style="padding: 10px 10px 10px 10px;">
             <h3><?php echo "Don't have title"?></h3>
@@ -254,7 +256,7 @@ if ($user_id) {
                     $id = idx($friend, 'id');
                     $name = idx($friend, 'name');
                     ?>
-                    <li style="display: inline-block;width: 250px;">
+                   <li style="display: inline-block;width: 250px;">
                         <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
                             <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
                             <?php echo he($name); ?>
